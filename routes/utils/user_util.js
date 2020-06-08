@@ -31,7 +31,7 @@ async function addToFavorites(userName, recipeID) {
     await DButils.execQuery(`INSERT INTO dbo.Users_Favorites VALUES (N'${userName}' ,${recipeID})`);
 }
 
-async function addToLastWatched(userName, recipeID) {
+async function addToLastThreeWatched(userName, recipeID) {
     let users = [];
     const users_watched = await DButils.execQuery("SELECT userName, recipe_id, seq FROM dbo.Users_ThreeLastWatched");
     users_watched.forEach(element => {
@@ -55,6 +55,10 @@ async function addToLastWatched(userName, recipeID) {
     }
 }
 
+async function addToWatched(userName, recipeID) {
+    await DButils.execQuery(`INSERT INTO dbo.Users_Watched VALUES (N'${userName}' ,${recipeID})`);
+}
+
 async function getMyRecipes(userName) {
     let myRecipes = [];
     const users = await DButils.execQuery("SELECT userName, recipe_id FROM dbo.Users_Recipes");
@@ -67,10 +71,10 @@ async function getMyRecipes(userName) {
 
 async function getMyFamilyRecipes(userName){
     let myRecipes = [];
-    const users = await DButils.execQuery("SELECT userName, recipe_id FROM dbo.Users_Recipes");
+    const users = await DButils.execQuery("SELECT userName, recipe_id, recipes_owner, whenMade, ingredients, instructions FROM dbo.Users_FamilyRecipes");
     users.forEach(element => {
         if(element.userName == userName)
-        myRecipes.push(element.recipe_id);
+        myRecipes.push(element);
     });
     return myRecipes;
 }
@@ -85,13 +89,34 @@ async function getLastWatchedRecipes(userName){
     return myRecipes;
 }
 
+async function getWatchedRecipes(userName){
+    let myRecipes = [];
+    const users = await DButils.execQuery("SELECT userName, recipe_id FROM dbo.Users_Watched");
+    users.forEach(element => {
+        if(element.userName == userName)
+        myRecipes.push(element.recipe_id);
+    });
+    return myRecipes;
+}
+
+function extractQureryParams(query_params, params){
+    const params_list = ["diet","cuisine","intolerence"];
+    params_list.forEach((param) => {
+        if(query_params[param]){
+            params[param] = query_params[param];
+        }
+    });
+ }
 
 
 
 exports.checkIdOnDb = checkIdOnDb;
 exports.getFavoriteIds = getFavoriteIds;
 exports.addToFavorites = addToFavorites;
-exports.addToLastWatched = addToLastWatched;
+exports.addToLastThreeWatched = addToLastThreeWatched;
 exports.getMyRecipes = getMyRecipes;
 exports.getMyFamilyRecipes = getMyFamilyRecipes;
 exports.getLastWatchedRecipes = getLastWatchedRecipes;
+exports.getWatchedRecipes = getWatchedRecipes;
+exports.addToWatched = addToWatched;
+exports.extractQureryParams = extractQureryParams;

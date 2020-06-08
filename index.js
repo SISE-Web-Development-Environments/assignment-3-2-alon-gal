@@ -32,7 +32,7 @@ app.use(
     session({
         cookieName: "session",
         secret: "abc123",
-        duration: 60 * 1000,
+        duration: 60 * 1000 * 15,
         activeDuration: 0,
         id: null,
     })

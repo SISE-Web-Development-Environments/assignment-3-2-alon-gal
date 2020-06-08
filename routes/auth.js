@@ -28,7 +28,6 @@ router.post('/register', async (req, res, next) => {
             if(newUser.password === newUser.confirmationPassword){
             await DButils.execQuery(`INSERT INTO dbo.Users VALUES (N'${newUser.userName}', N'${newUser.firstname}',N'${newUser.lastname}', HASHBYTES('SHA2_256','${newUser.password}'), N'${newUser.email}',N'${newUser.photoUrl}',N'${newUser.country}')`);
             res.status(201).send({ message: "user created", success: true });
-            res.redirect("/");
             }
             else{
                 res.status(410).send({message: "Confirmation Password does not match the Password" });

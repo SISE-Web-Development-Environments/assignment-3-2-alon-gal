@@ -143,11 +143,13 @@ function extractRelevantRecipeData(recipes_Info) {
       const {
         name,
         amount,
+        unit,
       } = extendedIngredients;
   
       return {
         name: name,
         amount: amount,
+        unit: unit,
       };
     });
   } 
