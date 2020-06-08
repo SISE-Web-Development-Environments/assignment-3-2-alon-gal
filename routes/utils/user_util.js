@@ -31,9 +31,9 @@ async function addToFavorites(userName, recipeID) {
     await DButils.execQuery(`INSERT INTO dbo.Users_Favorites VALUES (N'${userName}' ,${recipeID})`);
 }
 
-async function addToWatched(userName, recipeID) {
+async function addToLastWatched(userName, recipeID) {
     let users = [];
-    const users_watched = await DButils.execQuery("SELECT userName, recipe_id, seq FROM dbo.Users_Watched");
+    const users_watched = await DButils.execQuery("SELECT userName, recipe_id, seq FROM dbo.Users_ThreeLastWatched");
     users_watched.forEach(element => {
         if(element.userName == userName)
             if(element.recipe_id == recipeID){
@@ -46,12 +46,12 @@ async function addToWatched(userName, recipeID) {
         max = 0;
     }
     if(max < 3){
-        await DButils.execQuery(`INSERT INTO dbo.Users_Watched VALUES (N'${userName}' ,${recipeID} ,${max+1})`);
+        await DButils.execQuery(`INSERT INTO dbo.Users_ThreeLastWatched VALUES (N'${userName}' ,${recipeID} ,${max+1})`);
     }
     else{
-        await DButils.execQuery(`DELETE FROM dbo.Users_Watched WHERE userName=N'${userName}' AND seq=1`);
-        await DButils.execQuery(`UPDATE dbo.Users_Watched  SET seq=seq-1 WHERE userName=N'${userName}'`);
-        await DButils.execQuery(`INSERT INTO dbo.Users_Watched VALUES (N'${userName}' ,${recipeID} ,3)`);
+        await DButils.execQuery(`DELETE FROM dbo.Users_ThreeLastWatched WHERE userName=N'${userName}' AND seq=1`);
+        await DButils.execQuery(`UPDATE dbo.Users_ThreeLastWatched  SET seq=seq-1 WHERE userName=N'${userName}'`);
+        await DButils.execQuery(`INSERT INTO dbo.Users_ThreeLastWatched VALUES (N'${userName}' ,${recipeID} ,3)`);
     }
 }
 
@@ -77,7 +77,7 @@ async function getMyFamilyRecipes(userName){
 
 async function getLastWatchedRecipes(userName){
     let myRecipes = [];
-    const users = await DButils.execQuery("SELECT userName, recipe_id FROM dbo.Users_Watched");
+    const users = await DButils.execQuery("SELECT userName, recipe_id FROM dbo.Users_ThreeLastWatched");
     users.forEach(element => {
         if(element.userName == userName)
         myRecipes.push(element.recipe_id);
@@ -91,7 +91,7 @@ async function getLastWatchedRecipes(userName){
 exports.checkIdOnDb = checkIdOnDb;
 exports.getFavoriteIds = getFavoriteIds;
 exports.addToFavorites = addToFavorites;
-exports.addToWatched = addToWatched;
+exports.addToLastWatched = addToLastWatched;
 exports.getMyRecipes = getMyRecipes;
 exports.getMyFamilyRecipes = getMyFamilyRecipes;
 exports.getLastWatchedRecipes = getLastWatchedRecipes;

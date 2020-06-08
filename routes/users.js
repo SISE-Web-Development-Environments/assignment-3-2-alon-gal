@@ -6,6 +6,7 @@ const axios = require("axios");
 //#region express configures
 var logger = require("morgan");
 const user_util = require("./utils/user_util");
+const search_util = require("./utils/search_util");
 
 var app = express();
 app.use(logger("dev")); //logger
@@ -24,16 +25,16 @@ router.use(async (req, res, next) => {
   res.status(401);
 });
 
-router.get("/getMyFavorite", async (req, res) => {
-  //Alon - Get (Maybe to get from added recipes)
+router.get("/favorites", async (req, res) => {
   const username = req.user.userName;
   let favoriteRecipes = await user_util.getFavoriteIds(username);
-  res.status(201).send({ favoriteRecipes });
-
-  //Gal - Get from API
+  let id_list = favoriteRecipes;
+  search_util.getRecipesByid(id_list)
+  .then((ans)=>res.send(ans))
+  .catch((error) => {res.sendStatus(500);});
 });
 
-router.post("/addRecipeToFavorites", async (req, res) => {
+router.post("/favorites", async (req, res) => {
   //Alon
   const username = req.user.userName;
   const recipe_id = req.body.recipe_id;
@@ -46,12 +47,12 @@ router.post("/addRecipeToFavorites", async (req, res) => {
     });
 });
 
-router.post("/addRecipeToWatched", async (req, res) => {
+router.post("/watched", async (req, res) => {
   //Alon
   try{
   const username = req.user.userName;
   const recipe_id = req.body.recipe_id;
-  await user_util.addToWatched(username, recipe_id);
+  await user_util.addToLastWatched(username, recipe_id);
   res
     .status(201)
     .send({
@@ -75,7 +76,7 @@ router.get("/getMyRecipes", async (req, res) => {
   res.status(201).send({ myRecipes });
 });
 
-router.get("/getMyFamilyRecipes", async (req, res) => {
+router.get("/family", async (req, res) => {
   //Alon
   const username = req.user.userName;
   let myRecipes = await user_util.getMyFamilyRecipes(username);
@@ -86,14 +87,16 @@ router.post("/addRecipe", (req, res) => {
   //not needed
 });
 
-router.post("/addRecipeToFamilyRecipes", (req, res) => {
-    //not needed
+router.post("/family", (req, res) => {
+  //not needed
 });
 
-router.get("/getLastWatchedRecipes", async (req, res) => {
+router.get("/watched", async (req, res) => {
   const username = req.user.userName;
   let myRecipes = await user_util.getLastWatchedRecipes(username);
-  res.status(201).send({ myRecipes });
+  search_util.getRecipesByid(myRecipes)
+  .then((ans)=>res.send(ans))
+  .catch((error) => {res.sendStatus(500);});
 });
 
 module.exports = router;

@@ -44,10 +44,6 @@ app.use("/recipes",recipes);
 app.use((req,res) => res.sendStatus(404));
 
 
-app.get("/alive", (req,res) => {
-    res.send("I'm alive");
-});
-
 app.listen(port, () => {
     console.log('Example app listening on port 4000');
 });

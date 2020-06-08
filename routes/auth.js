@@ -14,6 +14,7 @@ app.use(logger("dev")); //logger
 app.use(express.json()); // parse application/json
 
 
+
 router.post('/register', async (req, res, next) => {
     try {
         let user_data = req.body;
@@ -30,7 +31,7 @@ router.post('/register', async (req, res, next) => {
             res.redirect("/");
             }
             else{
-                res.status(409).send({message: "Confirmation Password does not match the Password" });
+                res.status(410).send({message: "Confirmation Password does not match the Password" });
             }
         }
     } catch (error) {
@@ -59,7 +60,11 @@ router.post('/login', async(req, res, next) => {
 
 router.post('/logout', async(req, res, next) => {
     req.session.reset();
-     res.redirect("/");
+     res.redirect("/home");
+});
+
+router.get('/home', (req, res) => {
+    res.send("201");
 });
 
 module.exports = router;
