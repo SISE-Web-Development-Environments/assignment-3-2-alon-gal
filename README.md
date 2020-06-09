@@ -5,8 +5,8 @@ assignment-3-2-alon-gal created by GitHub Classroom
 
 
 Creators:
- - Alon Golombek 302361647
- - Gal Tadir 312358054
+ - Alon Golombek <b>302361647</b>
+ - Gal Tadir <b>312358054</b>
 
 API Documentation:
 
