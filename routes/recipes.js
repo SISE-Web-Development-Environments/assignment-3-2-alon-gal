@@ -2,12 +2,8 @@ var express = require("express");
 var router = express.Router();
 //#region global imports
 require("dotenv").config();
-const axios = require("axios");
 //#region express configures
-var path = require("path");
-var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var DButils = require("../DButils")
 const search_util = require("./utils/search_util");
 const api_key = "af41647aa0114f679992608f6467f6f1";
 

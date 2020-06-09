@@ -1,14 +1,8 @@
-const axios = require("axios");
-const api_url = "https://api.spoonacular.com/recipes";
-const api_key = "apiKey=df9dc266c11742979831b268d9def88b";
 var express = require("express");
 var router = express.Router();
 //#region global imports
 require("dotenv").config();
 //#region express configures
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
 var DButils = require("../../DButils");
 
 async function checkIdOnDb(id) {

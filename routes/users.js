@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 //#region global imports
 require("dotenv").config();
-const axios = require("axios");
 //#region express configures
 var logger = require("morgan");
 const user_util = require("./utils/user_util");
