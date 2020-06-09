@@ -16,7 +16,6 @@ router.use(async (req, res, next) => {
   if (req.session && req.session.id) {
     const id = req.session.id;
     const user = await user_util.checkIdOnDb(id);
-
     if (user) {
       req.user = user;
       next();
@@ -102,14 +101,6 @@ router.get("/family/:userName", async (req, res) => {
   const username = req.params.userName;
   let myRecipes = await user_util.getMyFamilyRecipes(username);
   res.status(201).send({ myRecipes });
-});
-
-router.post("/addRecipe", (req, res) => {
-  //not needed
-});
-
-router.post("/family", (req, res) => {
-  //not needed
 });
 
 router.get("/watched/:userName", async (req, res) => {

@@ -1,5 +1,4 @@
 const axios = require("axios");
-const api_url = "https://api.spoonacular.com/recipes";
 const api_key = "af41647aa0114f679992608f6467f6f1";
 
 async function getRecipeByid(id){

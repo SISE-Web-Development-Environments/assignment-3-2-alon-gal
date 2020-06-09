@@ -81,14 +81,13 @@ CREATE TABLE dbo.Users_FamilyRecipes
 );
 GO
 
-DECLARE @HashThis nvarchar(max);  
-SET @HashThis = lower(CONVERT(varchar(max), HASHBYTES('SHA2_256', 'test'), 2));
+
 INSERT INTO Users
  ([userName],[firstname],[lastname], [password],[email],[photoUrl],[country])
 VALUES
-    (N'test', N'TestF',N'TestL',@HashThis, N'test@test.com',N'testPhotoUrl',N'testCountry'),
-    (N'alongolo', N'Alon',N'Golombek',@HashThis, N'alongolo@post.bgu.ac.il',N'https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg',N'Israel'),
-    (N'galtad', N'Gal',N'Tadir',@HashThis, N'galtad@post.bgu.ac.il',N'https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg',N'Israel')
+    (N'test', N'TestF',N'TestL',N'$2b$10$6ocuirRNgNBNsIaWxwEGkOlSoavKMhcFPwAWq72Bi.tmM8ymj8wpW', N'test@test.com',N'testPhotoUrl',N'testCountry'),
+    (N'alongolo', N'Alon',N'Golombek',N'$2b$10$6ocuirRNgNBNsIaWxwEGkOlSoavKMhcFPwAWq72Bi.tmM8ymj8wpW', N'alongolo@post.bgu.ac.il',N'https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg',N'Israel'),
+    (N'galtad', N'Gal',N'Tadir',N'$2b$10$6ocuirRNgNBNsIaWxwEGkOlSoavKMhcFPwAWq72Bi.tmM8ymj8wpW', N'galtad@post.bgu.ac.il',N'https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg',N'Israel')
 GO
 
 
@@ -97,7 +96,12 @@ INSERT INTO Users_Favorites
 VALUES
     (N'test', 123),
     (N'test', 345),
-    (N'alongolo', 456)
+    (N'alongolo', 222),
+    (N'alongolo', 223),
+    (N'alongolo', 224),
+    (N'galtad', 300),
+    (N'galtad', 301),
+    (N'galtad', 302)
 GO
 
 INSERT INTO Users_ThreeLastWatched
@@ -105,7 +109,12 @@ INSERT INTO Users_ThreeLastWatched
 VALUES
     (N'test', 123, 1),
     (N'test', 345, 2),
-    (N'test', 567, 3)
+    (N'test', 567, 3),
+    (N'alongolo', 222,1),
+    (N'alongolo', 223,2),
+    (N'galtad', 300,1),
+    (N'galtad', 301,2),
+    (N'galtad', 302,3)
 GO
 
 INSERT INTO Users_Watched
@@ -113,7 +122,12 @@ INSERT INTO Users_Watched
 VALUES
     (N'test', 123),
     (N'test', 345),
-    (N'test', 567)
+    (N'test', 567),
+    (N'alongolo', 222),
+    (N'alongolo', 223),
+    (N'galtad', 300),
+    (N'galtad', 301),
+    (N'galtad', 302)
 GO
 
 INSERT INTO Users_Recipes
@@ -121,7 +135,12 @@ INSERT INTO Users_Recipes
 VALUES
     (N'test', 123),
     (N'test', 345),
-    (N'alongolo', 456)
+    (N'alongolo', 222),
+    (N'alongolo', 223),
+    (N'galtad', 300),
+    (N'galtad', 301),
+    (N'galtad', 302)
+
 GO
 
 INSERT INTO Users_FamilyRecipes
@@ -193,6 +212,55 @@ Add the salmon steaks to the sauce in the pan; cook each fillet (skin-side down 
 Optional -- Add the lemon wedges around the salmon (adds a stronger lemon taste). 
 Baste salmon one more time then transfer the pan to your oven to broil / grill for a further 5-6 minutes, or until the tops of the salmon are nicely charred, and the salmon is cooked to your liking.
 To serve, drizzle with the sauce and a squeeze of lemon juice. Serve with steamed vegetables; over rice or with a salad.',
-N'https://hips.hearstapps.com/del.h-cdn.co/assets/17/39/1600x2399/gallery-1506456214-delish-honey-garlic-glazed-salmon.jpg?resize=768:*')
+N'https://hips.hearstapps.com/del.h-cdn.co/assets/17/39/1600x2399/gallery-1506456214-delish-honey-garlic-glazed-salmon.jpg?resize=768:*'),
+(N'galtad', 459, N'Salmon', N'Mother',N'Friday Meal',
+N'*12 ounce salmon fillet, cut into 4 pieces
+*Coarse-grained salt
+*Freshly ground black pepper
+*Toasted Almond Parsley Salsa, for serving
+*Baked squash, for serving, optional',
+N'Preheat the oven to 450 degrees F.
+Season salmon with salt and pepper. Place salmon, skin side down, on a non-stick baking sheet or in a non-stick pan with an oven-proof handle. Bake until salmon is cooked through, about 12 to 15 minutes. Serve with the Toasted Almond Parsley Salad and squash, if desired.
+Mince the shallot and add to a small bowl. Pour the vinegar over the shallots and add a pinch of salt. Let sit for 30 minutes.
+Roughly chop the capers, parsley and almonds and add to the shallots. Add the olive oil, tasting as you go. Mix again and adjust the seasonings.
+',
+N'https://369t7u43n93dgc5pt43uc681-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/orange-salmon-power-bowl-7.jpg'),
+(N'galtad', 460, N'Brownies', N'Father',N'Friday Dessert',
+N'*½ cup butter
+*1 cup white sugar
+*2 eggs
+*1 teaspoon vanilla extract
+*⅓ cup unsweetened cocoa powder
+*½ cup all-purpose flour
+*¼ teaspoon salt
+*¼ teaspoon baking powder
+*3 tablespoons butter, softened
+*3 tablespoons unsweetened cocoa powder
+*1 tablespoon honey
+*1 teaspoon vanilla extract
+*1 cup confectioners sugar',
+N'Preheat oven to 350 degrees F (175 degrees C). Grease and flour an 8-inch square pan.
+In a large saucepan, melt 1/2 cup butter. Remove from heat, and stir in sugar, eggs, and 1 teaspoon vanilla. Beat in 1/3 cup cocoa, 1/2 cup flour, salt, and baking powder. Spread batter into prepared pan.
+Bake in preheated oven for 25 to 30 minutes. Do not overcook.
+To Make Frosting: Combine 3 tablespoons softened butter, 3 tablespoons cocoa, honey, 1 teaspoon vanilla extract, and 1 cup confectioners sugar. Stir until smooth. Frost brownies while they are still warm.
+',
+N'https://www.cookingclassy.com/wp-content/uploads/2019/05/brownies-22-768x1152.jpg'),
+(N'galtad', 461, N'Soup', N'Grandmother',N'Holidays',
+N'*3 to 3 1/2 pounds butternut squash, approximately 2, seeded and quartered
+*Unsalted butter, melted, for brushing
+*1 tablespoon kosher salt, plus 1 teaspoon
+*1 teaspoon freshly ground white pepper, plus 1/2 teaspoon
+*3 cups chicken or vegetable broth
+*1/4 cup honey
+*1 teaspoon minced fresh ginger
+*1/2 cup heavy cream
+*1/4 teaspoon freshly grated nutmeg
+',
+N'Heat the oven to 400 degrees F.
+Place the quartered squash onto a half sheet pan, brush the flesh of the squash with a little butter and season with 1 tablespoon of the salt and 1 teaspoon of the white pepper. Place in the oven and roast for 30 to 35 minutes or until the flesh is soft and tender.
+Scoop the flesh from the skin into a 6-quart pot. Add the broth, honey and ginger. Place over medium heat and bring to a simmer, approximately 7 to 8 minutes. Using a stick blender, puree the mixture until smooth*. Stir in the heavy cream and return to a low simmer. Season with the remaining salt, pepper, and nutmeg.
+When blending hot liquids: Remove liquid from the heat and allow to cool for at least 5 minutes. Transfer liquid to a blender or food processor and fill it no more than halfway. If using a blender, release one corner of the lid. This prevents the vacuum effect that creates heat explosions. Place a towel over the top of the machine, pulse a few times then process on high speed until smooth.
+',
+N'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Hungarian_goulash_soup.jpg/1200px-Hungarian_goulash_soup.jpg')
 GO
 
