@@ -24,6 +24,15 @@ const recipes = require("./routes/recipes");
 const auth = require("./routes/auth");
 
 const port = process.env.PORT || 4000;
+
+const corsConfig = {
+  origin: true,
+  credentials: true
+};
+
+app.use(cors(corsConfig));
+app.options("*", cors(corsConfig));
+
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(morgan(":method :url :status :response-time ms"));
@@ -42,15 +51,7 @@ app.use("/users",users);
 app.use("/recipes",recipes);
 app.use((req,res) => res.sendStatus(404));
 
-app.use(cors())
 
-app.get('/products/:id', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
-})
-
-app.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
-})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
