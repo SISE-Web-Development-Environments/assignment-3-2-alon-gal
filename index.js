@@ -24,7 +24,7 @@ const users = require("./routes/users");
 const recipes = require("./routes/recipes");
 const auth = require("./routes/auth");
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(morgan(":method :url :status :response-time ms"));
