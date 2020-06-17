@@ -12,11 +12,12 @@ require("dotenv").config();
 const asyncHandler = require("express-async-handler");
 var path = require("path");
 var logger = require("morgan");
-
+var cors = require('cors');
 var app = express();
 app.use(logger("dev")); //logger
 app.use(express.json()); // parse application/json
-
+app.use(cors());
+app.options("*", cors());
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, "public"))); //To serve static files such as images, CSS files, and JavaScript files
 
