@@ -12,7 +12,7 @@ require("dotenv").config();
 const asyncHandler = require("express-async-handler");
 var path = require("path");
 var logger = require("morgan");
-var cors = require('cors');
+var cors = require("cors");
 var app = express();
 app.use(logger("dev")); //logger
 app.use(express.json()); // parse application/json
