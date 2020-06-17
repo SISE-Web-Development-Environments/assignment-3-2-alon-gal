@@ -1,5 +1,6 @@
 const axios = require("axios");
-const api_key = "af41647aa0114f679992608f6467f6f1";
+require("dotenv").config();
+const api_key = process.env.spooncular_apiKey;
 
 async function getRecipeByid(id){
 
