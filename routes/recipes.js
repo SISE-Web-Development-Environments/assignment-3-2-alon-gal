@@ -5,7 +5,7 @@ require("dotenv").config();
 //#region express configures
 var logger = require("morgan");
 const search_util = require("./utils/search_util");
-const api_key = "af41647aa0114f679992608f6467f6f1";
+const api_key = process.env.spooncular_apiKey;
 
 var app = express();
 app.use(logger("dev")); //logger
