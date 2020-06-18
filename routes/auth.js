@@ -19,20 +19,13 @@ router.post("/register", async (req, res, next) => {
       res.status(409).send({ message: "Username taken" });
     } else {
       var newUser = { ...req.body };
-      if (newUser.password === newUser.confirmationPassword) {
         bcrypt.hash(newUser.password, saltRounds, async function (err, hash) {
           await DButils.execQuery(
             `INSERT INTO dbo.Users VALUES (N'${newUser.userName}', N'${newUser.firstname}',N'${newUser.lastname}', N'${hash}', N'${newUser.email}',N'${newUser.photoUrl}',N'${newUser.country}')`
           );
           res.status(201).send({ message: "user created", success: true });
         });
-      } else {
-        res
-          .status(410)
-          .send({
-            message: "Confirmation Password does not match the Password",
-          });
-      }
+      } 
     }
   } catch (error) {
     next(error);
