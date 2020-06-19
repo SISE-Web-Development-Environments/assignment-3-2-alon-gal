@@ -81,9 +81,9 @@ router.post("/watched", async (req, res) => {
       success: true,
     });
   } catch (err) {
-    res.status(201).send({
+    res.status(401).send({
       message: "recipe is already added",
-      success: true,
+      success: false,
     });
   }
 });
