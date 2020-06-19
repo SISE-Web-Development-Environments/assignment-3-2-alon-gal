@@ -56,9 +56,9 @@ router.post("/favorites", async (req, res) => {
       success: true,
     });
   } catch (err) {
-    res.status(409).send({
+    res.status(201).send({
       message: "recipe is already added",
-      success: false,
+      success: true,
     });
   }
 });
@@ -81,9 +81,9 @@ router.post("/watched", async (req, res) => {
       success: true,
     });
   } catch (err) {
-    res.status(409).send({
+    res.status(201).send({
       message: "recipe is already added",
-      success: false,
+      success: true,
     });
   }
 });
