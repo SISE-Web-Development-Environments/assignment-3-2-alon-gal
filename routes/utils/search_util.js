@@ -155,15 +155,19 @@ function extractRelevantRecipeData(recipes_Info) {
   function extractIngredients(extendedIngredients) {
     return extendedIngredients.map((extendedIngredients) => {
       const {
+        id,
         name,
         amount,
         unit,
+        original,
       } = extendedIngredients;
   
       return {
+        id: id,
         name: name,
         amount: amount,
         unit: unit,
+        original: original,
       };
     });
   } 
