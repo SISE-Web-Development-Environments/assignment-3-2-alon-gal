@@ -31,15 +31,29 @@ async function getRecipesByid(id_list){
 }
 
 async function getRandomRecipes(howMany){
-  let ans = await axios.get(`https://api.spoonacular.com/recipes/random`,{
-    params:{
-            apiKey:api_key,
-            number:howMany,
-        }
+    let res = [];
+  for (let i = 0; i < howMany; i++) {
+    let ans = await axios.get(`https://api.spoonacular.com/recipes/random`, {
+      params: {
+        apiKey: api_key,
+        number: 1,
+      }
     });
     let recipes = ans.data.recipes;
-    let recipesData= extractRelevantRecipesData1(recipes);
-    return recipesData;
+    let recipesData = extractRelevantRecipesData1(recipes);
+    while (recipesData[0].instructions == "") {
+      ans = await axios.get(`https://api.spoonacular.com/recipes/random`, {
+        params: {
+          apiKey: api_key,
+          number: 1,
+        }
+      });
+      recipes = ans.data.recipes;
+      recipesData = extractRelevantRecipesData1(recipes);
+    }
+    res.push(recipesData[0]);
+  }
+  return res;
 }
 
 function extractRelevantRecipeData(recipes_Info) {
