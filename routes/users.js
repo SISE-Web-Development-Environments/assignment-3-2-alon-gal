@@ -88,10 +88,10 @@ router.post("/watched", async (req, res) => {
   }
 });
 
-router.get("/getMyRecipes/:userName", async (req, res) => {
+router.get("/getMyRecipes/:recipe_id", async (req, res) => {
   //Alon
-  const username = req.params.userName;
-  let myRecipes = await user_util.getMyRecipes(username);
+  const recipe_id = req.params.recipe_id;
+  let myRecipes = await user_util.getMyRecipes(recipe_id);
   res.status(201).send({ myRecipes });
 });
 
