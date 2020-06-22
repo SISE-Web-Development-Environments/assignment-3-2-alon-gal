@@ -151,3 +151,4 @@ exports.getLastWatchedRecipes = getLastWatchedRecipes;
 exports.getWatchedRecipes = getWatchedRecipes;
 exports.addToWatched = addToWatched;
 exports.extractQureryParams = extractQureryParams;
+exports.getRecipe = getRecipe;
