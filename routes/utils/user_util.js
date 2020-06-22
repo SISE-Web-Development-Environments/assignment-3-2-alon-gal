@@ -85,6 +85,7 @@ async function getMyRecipes(id) {
     if (element.id == id) myRecipes.push(element);
   });
   return myRecipes;
+}
 
 async function getMyFamilyRecipes(userName) {
   let myRecipes = [];
