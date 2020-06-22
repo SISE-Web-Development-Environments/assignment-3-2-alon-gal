@@ -98,7 +98,7 @@ router.get("/getMyRecipes/:userName", async (req, res) => {
 router.get("/getRecipes/:recipe_id", async (req, res) => {
   //Alon
   const recipe_id = req.params.recipe_id;
-  let myRecipe = await user_util.getRecipe(recipe_id);
+  let myRecipes = await user_util.getRecipe(recipe_id);
   res.status(201).send({ myRecipes });
 });
 
