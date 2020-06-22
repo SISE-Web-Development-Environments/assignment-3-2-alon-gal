@@ -79,10 +79,10 @@ async function addToWatched(userName, recipeID) {
 async function getMyRecipes(userName) {
   let myRecipes = [];
   const users = await DButils.execQuery(
-    "SELECT userName, recipe_id FROM dbo.Users_Recipes"
+    "SELECT userName,id,image,title,readyInMinutes,vegetarian,vegan,glutenFree,aggregateLikes,instructions,Ingredients,servings FROM dbo.Users_MyRecipes"
   );
   users.forEach((element) => {
-    if (element.userName == userName) myRecipes.push(element.recipe_id);
+    if (element.userName == userName) myRecipes.push(element);
   });
   return myRecipes;
 }
