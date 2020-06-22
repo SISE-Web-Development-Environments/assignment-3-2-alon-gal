@@ -76,16 +76,15 @@ async function addToWatched(userName, recipeID) {
   );
 }
 
-async function getMyRecipes(userName) {
+async function getMyRecipes(id) {
   let myRecipes = [];
   const users = await DButils.execQuery(
     "SELECT userName,id,image,title,readyInMinutes,vegetarian,vegan,glutenFree,aggregateLikes,instructions,Ingredients,servings FROM dbo.Users_MyRecipes"
   );
   users.forEach((element) => {
-    if (element.userName == userName) myRecipes.push(element);
+    if (element.id == id) myRecipes.push(element);
   });
   return myRecipes;
-}
 
 async function getMyFamilyRecipes(userName) {
   let myRecipes = [];
