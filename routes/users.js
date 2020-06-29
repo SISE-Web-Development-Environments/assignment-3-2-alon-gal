@@ -33,8 +33,8 @@ router.use(async (req, res, next) => {
   }
 });
 
-router.get("/favorites/:userName", async (req, res) => {
-  const username = req.params.userName;
+router.get("/favorites", async (req, res) => {
+  const username = req.session.id;
   let favoriteRecipes = await user_util.getFavoriteIds(username);
   let id_list = favoriteRecipes;
   search_util
