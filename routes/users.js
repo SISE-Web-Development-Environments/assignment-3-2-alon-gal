@@ -63,9 +63,9 @@ router.post("/favorites", async (req, res) => {
   }
 });
 
-router.get("/favoritesId/:userName", async (req, res) => {
+router.get("/favoritesId/", async (req, res) => {
   //Alon
-  const username = req.params.userName;
+  const username = req.session.id;
   let favoriteRecipes = await user_util.getFavoriteIds(username);
   res.status(201).send({ favoriteRecipes });
 });
