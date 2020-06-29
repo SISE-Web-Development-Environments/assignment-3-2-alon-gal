@@ -48,7 +48,7 @@ router.get("/favorites", async (req, res) => {
 router.post("/favorites", async (req, res) => {
   //Alon
   try {
-    const username = req.user.userName;
+    const username = req.session.id;
     const recipe_id = req.body.recipe_id;
     await user_util.addToFavorites(username, recipe_id);
     res.status(201).send({
@@ -73,7 +73,7 @@ router.get("/favoritesId/", async (req, res) => {
 router.post("/watched", async (req, res) => {
   //Alon
   try {
-    const username = req.user.userName;
+    const username = req.session.id;
     const recipe_id = req.body.recipe_id;
     await user_util.addToWatched(username, recipe_id);
     res.status(201).send({
@@ -88,9 +88,9 @@ router.post("/watched", async (req, res) => {
   }
 });
 
-router.get("/getMyRecipes/:userName", async (req, res) => {
+router.get("/getMyRecipes", async (req, res) => {
   //Alon
-  const username = req.params.userName;
+  const username = req.session.id;
   let myRecipes = await user_util.getMyRecipes(username);
   res.status(201).send({ myRecipes });
 });
@@ -102,22 +102,22 @@ router.get("/getRecipes/:recipe_id", async (req, res) => {
   res.status(201).send({ myRecipes });
 });
 
-router.get("/family/:userName", async (req, res) => {
+router.get("/family", async (req, res) => {
   //Alon
-  const username = req.params.userName;
+  const username = req.session.id;
   let myRecipes = await user_util.getMyFamilyRecipes(username);
   res.status(201).send({ myRecipes });
 });
 
-router.get("/watched/:userName", async (req, res) => {
+router.get("/watched", async (req, res) => {
   //Alon
-  const username = req.params.userName;
+  const username = req.session.id;
   let myRecipes = await user_util.getWatchedRecipes(username);
   res.status(201).send({ myRecipes });
 });
 
-router.get("/lastThreeWatched/:userName", async (req, res) => {
-  const username = req.params.userName;
+router.get("/lastThreeWatched", async (req, res) => {
+  const username = req.session.id;
   let myRecipes = await user_util.getLastWatchedRecipes(username);
   search_util
     .getRecipesByid(myRecipes)
@@ -130,7 +130,7 @@ router.get("/lastThreeWatched/:userName", async (req, res) => {
 router.post("/lastThreeWatched", async (req, res) => {
   //Alon
   try {
-    const username = req.user.userName;
+    const username = req.session.id;
     const recipe_id = req.body.recipe_id;
     await user_util.addToLastThreeWatched(username, recipe_id);
     res.status(201).send({
