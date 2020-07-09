@@ -35,7 +35,7 @@ router.post("/login", async (req, res, next) => {
   try {
     let user_data = req.body;
     const users = await DButils.execQuery(
-      "SELECT userName, password FROM dbo.users"
+      "SELECT userName, password, photoUrl FROM dbo.users"
     );
     const user = users.find((x) => x.userName === user_data.userName);
     if (user != null) {
