@@ -40,7 +40,7 @@ app.use(
     session({
         cookieName: "session",
         secret: "abc123",
-        duration: 60 * 1000 * 15,
+        duration: 60 * 1000 * 20,
         activeDuration: 0,
         cookie: {
           httpOnly: false
