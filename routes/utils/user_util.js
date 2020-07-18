@@ -15,10 +15,10 @@ async function checkIdOnDb(id) {
 async function getFavoriteIds(userName) {
   let favoriteRecipes = [];
   const users = await DButils.execQuery(
-    "SELECT userName, recipe_id FROM dbo.Users_Favorites"
+    `SELECT recipe_id FROM dbo.Users_Favorites where userName= N'${userName}'`
   );
   users.forEach((element) => {
-    if (element.userName == userName) favoriteRecipes.push(element.recipe_id);
+    favoriteRecipes.push(element.recipe_id);
   });
   return favoriteRecipes;
 }
